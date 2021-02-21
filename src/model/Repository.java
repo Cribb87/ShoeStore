@@ -15,6 +15,7 @@ import java.util.Properties;
  */
 public class Repository {
         private Properties properties = new Properties();
+        private int orderID;
 
 
 
@@ -33,7 +34,8 @@ public class Repository {
                 e.printStackTrace();
             }
 
-            getAllShoes().forEach(System.out::println);
+            addToCart(1,3);
+            addToCart(1,3);
         }
 
         private Connection addConnection() throws SQLException {
@@ -126,5 +128,22 @@ public class Repository {
             return null;
         }
 
+        public String addToCart(int customerID,int shoeID){
+            try (Connection connection = addConnection();
+            CallableStatement statement = connection.prepareCall("call addToCart(?,?,?)")){
+                statement.setInt(1,customerID);
+                statement.setInt(2,orderID);
+                statement.setInt(3,shoeID);
+                statement.registerOutParameter(2,Types.INTEGER);
+                statement.execute();
 
+                if (orderID == 0)
+                    orderID = statement.getInt(2);
+                System.out.println(orderID);
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            return "Skon har laggts till i din order";
+        }
 }

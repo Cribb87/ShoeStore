@@ -81,8 +81,6 @@ public class Repository {
             }
         }
 
-
-
         public List<Shoe> getAllShoes(){
             List<Shoe> shoes = new ArrayList<>();
             try(Connection connection = addConnection();

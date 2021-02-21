@@ -140,11 +140,12 @@ public class Repository {
 
                 if (orderID == 0)
                     orderID = statement.getInt(2);
+                return "Skon har laggts till i din order";
 
             }catch (SQLException e){
                 e.printStackTrace();
             }
-            return "Skon har laggts till i din order";
+            return "Något blev fel";
         }
 
         private Shoe getShoe(List<Shoe> shoes, int shoeId){
@@ -152,7 +153,6 @@ public class Repository {
                 if (s.getId() == shoeId)
                     return s;
             }
-            System.out.println("sug");
             return null;
         }
 

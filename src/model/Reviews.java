@@ -19,4 +19,6 @@ public class Reviews {
         this.shoe = shoe;
         this.rating = rating;
     }
+
+
 }

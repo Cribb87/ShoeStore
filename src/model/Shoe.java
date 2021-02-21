@@ -16,15 +16,14 @@ public class Shoe {
     private Size size;
     private List<ShoeColor> colors;
     private List<ShoeCategory> categories;
-    private int stockBalance;
 
 
-    public Shoe(int id, Price price, Brand brand, Size size,int stockBalance) {
+    public Shoe(int id, Price price, Brand brand, Size size) {
         this.id = id;
         this.price = price;
         this.brand = brand;
         this.size = size;
-        this.stockBalance = stockBalance;
+
     }
 
     public void addColor(ShoeColor color){
@@ -35,11 +34,6 @@ public class Shoe {
         categories.add(category);
     }
 
-    public void addAmountToStock(int amount){
-        stockBalance +=amount;
-    }
-    public void removeOneFromStock(){
-        stockBalance -=1;
-    }
+
 
 }

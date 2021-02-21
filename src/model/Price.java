@@ -17,4 +17,9 @@ public class Price {
         this.amount = amount;
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return  amount + ": " + currency;
+    }
 }

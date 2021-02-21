@@ -9,10 +9,16 @@ package model;
  */
 public class Rating {
     private int id;
-    private String Rate;
+    private String rate;
 
     public Rating(int id, String rate) {
         this.id = id;
-        Rate = rate;
+        this.rate = rate;
+    }
+
+
+    @Override
+    public String toString(){
+        return rate;
     }
 }

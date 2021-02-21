@@ -14,7 +14,7 @@ public class Order {
     private int id;
     private Customer customer;
     private Date orderDate;
-    private List<Shoe> shoes;
+    private List<ShoeGroup> shoes;
 
     public Order(int id, Customer customer, Date orderDate) {
         this.id = id;
@@ -22,7 +22,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public void addShoe(Shoe shoe){
+    public void addShoe(ShoeGroup shoe){
         shoes.add(shoe);
     }
 }

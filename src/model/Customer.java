@@ -11,4 +11,11 @@ public class Customer {
     // tror inte vi behöver denna class?
     private int id;
 
+    public Customer(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

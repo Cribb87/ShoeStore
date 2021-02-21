@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ public class Shoe {
     private Price price;
     private Brand brand;
     private Size size;
-    private List<ShoeColor> colors;
-    private List<ShoeCategory> categories;
+    private List<ShoeColor> colors = new ArrayList<>();
+    private List<ShoeCategory> categories = new ArrayList<>();
 
 
     public Shoe(int id, Price price, Brand brand, Size size) {
@@ -24,6 +25,10 @@ public class Shoe {
         this.brand = brand;
         this.size = size;
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void addColor(ShoeColor color){
@@ -35,5 +40,9 @@ public class Shoe {
     }
 
 
+    @Override
+    public String toString() {
 
+        return "Sko: " + brand + " Categori: " + categories +" Storlek: " + size +  " Färg: " + colors + " Pris: " + price  ;
+    }
 }

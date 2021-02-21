@@ -19,7 +19,7 @@ public class Repository {
 
     public Repository(){
         try{
-            properties.load(new FileInputStream("src/Setting.Properties"));
+            properties.load(new FileInputStream("src/properties/Setting.Properties"));
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e){
             e.printStackTrace();

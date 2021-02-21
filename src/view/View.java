@@ -20,8 +20,14 @@ public class View {
         String choise;
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("What product do you want to buy?");
-        choise = scan.nextLine().trim();
+        while(true) {
+            System.out.print("What product do you want to buy? (Type Q for exit)");
+            choise = scan.nextLine().trim();
+            if (choise.equalsIgnoreCase("Q")){
+                System.exit(0);
+            }
+                System.out.println(repo.getAllShoes());
+        }
     }
 
     // skriv in användarnan & lösenord

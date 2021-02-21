@@ -42,7 +42,6 @@ public class Repository {
                     properties.getProperty("password"));
         }
 
-
         private void addCategoryToShoes(List<Shoe> shoes){
             try (Connection connection = addConnection();
             PreparedStatement statement = connection.prepareStatement("select * from categoryGroup " +

@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Emil Johansson
@@ -42,6 +43,10 @@ public class Shoe {
 
     @Override
     public String toString() {
-        return brand + " Categori: " + categories +" Storlek: " + size +  " Färg: " + colors + " Pris: " + price  ;
+        String category = categories.stream().map(String::valueOf).collect(Collectors.joining("/"));
+        String color = colors.stream().map(String::valueOf).collect(Collectors.joining("/"));
+        return brand + " Kategori: " + category
+                +" Storlek: " + size +  " Färg: " + color
+                + " Pris: " + price  ;
     }
 }

@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Emil Johansson
@@ -29,8 +31,10 @@ public class Order {
 
     @Override
     public String toString() {
+        String shoe = shoes.stream().map(String::valueOf).collect(Collectors.joining("\n"));
+
         return "OrderID: " + id +
                 "\nDatum: " + orderDate +
-                "\nSkor: " + shoes;
+                "\nSkor: " + shoe;
     }
 }

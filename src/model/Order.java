@@ -1,7 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Emil Johansson
@@ -14,7 +17,7 @@ public class Order {
     private int id;
     private Customer customer;
     private Date orderDate;
-    private List<ShoeGroup> shoes;
+    private List<ShoeGroup> shoes = new ArrayList<>();
 
     public Order(int id, Customer customer, Date orderDate) {
         this.id = id;
@@ -22,7 +25,16 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public void addShoe(ShoeGroup shoe){
-        shoes.add(shoe);
+    public void addShoeGroup(ShoeGroup shoeGroup){
+        shoes.add(shoeGroup);
+    }
+
+    @Override
+    public String toString() {
+        String shoe = shoes.stream().map(String::valueOf).collect(Collectors.joining("\n"));
+
+        return "OrderID: " + id +
+                "\nDatum: " + orderDate +
+                "\nSkor: " + shoe;
     }
 }

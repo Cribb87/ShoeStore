@@ -15,4 +15,9 @@ public class ShoeColor {
         this.id = id;
         this.shade = shade;
     }
+
+    @Override
+    public String toString() {
+        return shade;
+    }
 }

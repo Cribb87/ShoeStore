@@ -16,4 +16,8 @@ public class Size {
         this.number = number;
     }
 
+    @Override
+    public String toString() {
+        return number+"";
+    }
 }

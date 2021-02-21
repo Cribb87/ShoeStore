@@ -8,7 +8,6 @@ package model;
  * Package: model
  */
 public class Customer {
-    // tror inte vi behöver denna class?
     private int id;
 
     public Customer(int id) {

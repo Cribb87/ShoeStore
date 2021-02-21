@@ -30,8 +30,6 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
-            System.out.println(checkPassword("Froyo Doe","lösenord"));
-            System.out.println(addToCart(2));
         }
 
         private Connection addConnection() throws SQLException {

@@ -24,7 +24,7 @@ public class Controller {
         return rep.getAllShoes();
     }
 
-    public Customer loggin(String username, String password){
+    public Boolean loggin(String username, String password){
         return rep.checkPassword(username,password);
     }
 

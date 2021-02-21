@@ -1,5 +1,6 @@
 package model;
 
+import javax.sound.midi.ShortMessage;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Properties;
  */
 public class Repository {
         private Properties properties = new Properties();
-        private int orderID;
+        private int orderID = 6;
 
 
 
@@ -34,8 +35,8 @@ public class Repository {
                 e.printStackTrace();
             }
 
-            addToCart(1,3);
-            addToCart(1,3);
+          System.out.println(getOrder());
+
         }
 
         private Connection addConnection() throws SQLException {
@@ -139,11 +140,40 @@ public class Repository {
 
                 if (orderID == 0)
                     orderID = statement.getInt(2);
-                System.out.println(orderID);
 
             }catch (SQLException e){
                 e.printStackTrace();
             }
             return "Skon har laggts till i din order";
+        }
+
+        private Shoe getShoe(List<Shoe> shoes, int shoeId){
+            for (Shoe s : shoes){
+                if (s.getId() == shoeId)
+                    return s;
+            }
+            System.out.println("sug");
+            return null;
+        }
+
+        public Order getOrder(){
+            Order order = null;
+            List<Shoe> shoes = getAllShoes();
+            try(Connection connection = addConnection();
+            PreparedStatement statement = connection.prepareStatement("select * from shoegroup " +
+                    "join orders on orders.id = shoegroup.orderID where shoegroup.orderid = ?")) {
+                statement.setInt(1,orderID);
+                ResultSet rs = statement.executeQuery();
+                while(rs.next()){
+                    if (order == null)
+                        order = new Order(orderID, new Customer(rs.getInt("orders.customerID")), rs.getDate("orders.orderdate"));
+                    order.addShoeGroup(new ShoeGroup(rs.getInt("shoegroup.id"),getShoe(shoes,rs.getInt("shoegroup.shoeid")),rs.getInt("shoegroup.Quantity")));
+                }
+
+
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+            return order;
         }
 }

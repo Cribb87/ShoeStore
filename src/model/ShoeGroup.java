@@ -17,4 +17,9 @@ public class ShoeGroup {
         this.shoe = shoe;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return  shoe + " Antal: " + quantity;
+    }
 }

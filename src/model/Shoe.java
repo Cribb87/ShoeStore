@@ -42,7 +42,6 @@ public class Shoe {
 
     @Override
     public String toString() {
-
-        return "Sko: " + brand + " Categori: " + categories +" Storlek: " + size +  " Färg: " + colors + " Pris: " + price  ;
+        return brand + " Categori: " + categories +" Storlek: " + size +  " Färg: " + colors + " Pris: " + price  ;
     }
 }

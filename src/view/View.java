@@ -84,7 +84,6 @@ public class View {
         }
     }
 
-
     // möjlighet att skriva ut alla produkter som lagts i varukorgen
     public void printOrder(){
         Scanner scanner = new Scanner(System.in);

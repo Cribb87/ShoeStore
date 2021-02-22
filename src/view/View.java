@@ -1,11 +1,12 @@
 package view;
 
 import controller.Controller;
+import model.Order;
 import model.Shoe;
 
 import java.sql.*;
+import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,70 +18,42 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Package: view
  */
 public class View {
-    public static void main(String[] args) throws SQLException {
-        new View();
-    }
-    
-    Controller controller;
-    Scanner scan;
+    private Controller controller;
+
 
     // låta användaren lägga in produkter. ska ej kunna se databasens IDn
-    public View() throws SQLException {
+    public View() {
         controller = new Controller();
-        scan = new Scanner(System.in);
+    }
 
-
-//        String choise;
+    public void promptUser(){
         int alternative;
-//
+        String choice;
+        Scanner scan = new Scanner(System.in);
+
         System.out.println("Välkommen till SkoShoppen");
-//        login();
-        System.out.println("Välj en produkt du vill lägga till i varukorgen.");
+        login();
         printAllShoes();
         while (true) {
-            alternative = scan.nextInt();
-            if(addToCart(alternative))
+            addToCart();
+            System.out.print("Vill du lägga till fler varor? ja/nej: ");
+            choice = scan.nextLine().trim();
+            if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
         }
+        printOrder();
 
 
-//
-//
-//        System.out.println("Välj ett alternativ");
-//        System.out.println("1. Gör en beställning");
-//        System.out.println("2. Lägg till en vara i en befintlig beställning");
-//        System.out.println("3. Kolla betyg på en produkt");
-//        System.out.println("4. Ge betyg på en produkt");
-//        System.out.println("5. Kolla vilka produkter som finns i lager");
-//        System.out.println("6. Kolla vilka produkter som ligger i varukorgen");
-//        alternative = scan.nextInt();
-//
-//        switch (alternative) {
-//            case 1 -> repo.getOrder();
-//            case 2 -> repo.addToCart( 1); // ändra denna
-//            case 3 -> Rating.class.toString();
-//            case 4 ->
-//            case 5 -> stockBalance();
-//            case 6 -> printAllProducts();
-//        }
-
-      /*  while(true) {
-            System.out.print("Vilken sko vill du lägga till? (Skriv Q för att avsluta)");
-            choise = scan.nextLine().trim();
-            if (choise.equalsIgnoreCase("Q")){
-                System.exit(0);
-            }
-                System.out.println(repo.getAllShoes());
-        }*/
     }
 
     // skriv in användarnamn & lösenord
-    private void login(){
+    public void login(){
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Användarnamn: ");
-            String userName = scan.nextLine();
+            String userName = scanner.nextLine();
             System.out.print("Lösenord: ");
-            String password = scan.nextLine();
+            String password = scanner.nextLine();
             if (controller.login(userName, password)) {
                 System.out.println("Du är nu inloggad");
                 break;
@@ -95,44 +68,45 @@ public class View {
     }
 
 
-    public int stockBalance() throws SQLException {
-        Properties properties = new Properties();
-        try(Connection connection = DriverManager.getConnection(properties.getProperty("connectionString"),
-                properties.getProperty("name"),
-                properties.getProperty("password"));
-            PreparedStatement statement = connection.prepareStatement("select * from stockbalance" +
-                    "join shoe on shoe.id = stockbalance.shoeID");
-            ResultSet rs = statement.executeQuery()){
-                while(rs.next()){
-                    int quantity = rs.getInt(stockBalance());
-                }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return stockBalance();
-    }
-
     // stored procedures, produkten läggs till i beställningen
-    public Boolean addToCart(int shoe){
-        int listIndex = shoe - 1;
+    public void addToCart(){
+        Scanner scanner = new Scanner(System.in);
         List<Shoe> shoes = controller.getAllShoes();
-        if (shoes.size()-1 < listIndex) {
-            System.out.println("Produkten finns inte\nFörsök igen.");
-            return false;
+        System.out.println("Välj en produkt du vill lägga till i varukorgen.");
+        try {
+            int listIndex = scanner.nextInt() - 1;
+            if (shoes.size() - 1 < listIndex || 0 > listIndex) {
+                System.out.println("Produkten finns inte!");
+            } else
+                System.out.println(controller.addToCart(shoes.get(listIndex).getId()));
+        }catch (InputMismatchException e){
+            System.out.println("Fel inmatning!");
         }
-        System.out.println(controller.addToCart(shoes.get(listIndex).getId()));
-        return true;
     }
 
-    // återkoppling om fel uppstod eller om det gått bra att lägga till varan (görs i Repository?)
 
     // möjlighet att skriva ut alla produkter som lagts i varukorgen
-    public void printAllProducts(){
-        //System.out.println(repo.getOrder().toString());
+    public void printOrder(){
+        Scanner scanner = new Scanner(System.in);
+        Order order = controller.getLastOrder();
+
+        if (order!= null) {
+            System.out.println("Tack för ditt köp");
+            System.out.print("Vill du se ordern? ja/nej: ");
+            String choice = scanner.nextLine().trim();
+            if (choice.equalsIgnoreCase("ja"))
+                System.out.println(order);
+        }else System.out.println("Du har inget i din order!");
     }
 
     // betyg och kommentarer ska kunna GES på produkter (VG)
 
     // betyg och kommentarer ska kunna SES på produkter (VG)
+
+
+
+    public static void main(String[] args) throws SQLException {
+        View view = new View();
+        view.promptUser();
+    }
 }

@@ -189,4 +189,17 @@ public class Repository {
         }
             return "Betyget är tillagt";
     }
+
+    public List<Reviews> readReviews (Shoe shoe) {
+        List<Reviews> getReviews = new ArrayList<>();
+        try (Connection connection = addConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * from averageRate" +
+                     "join rating on rating.id = reviews.ratingID where shoe.id = ?")) {
+            statement.setInt(1, shoe.getId());
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return readReviews(shoe);
+    }
 }

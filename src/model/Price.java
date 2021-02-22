@@ -22,6 +22,14 @@ public class Price {
         return id;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
     @Override
     public String toString() {
         return  amount + ": " + currency;

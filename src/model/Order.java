@@ -32,9 +32,15 @@ public class Order {
     @Override
     public String toString() {
         String shoe = shoes.stream().map(String::valueOf).collect(Collectors.joining("\n"));
+        int amount =0;
+        String currency = ": " + shoes.get(0).getShoe().getPrice().getCurrency();
+        for (ShoeGroup s: shoes){
+            amount += s.getQuantity() * s.getShoe().getPrice().getAmount();
+        }
 
         return "OrderID: " + id +
                 "\nDatum: " + orderDate +
-                "\nSkor: " + shoe;
+                "\nSkor: " + shoe +
+                "\nSumma: " + amount + currency;
     }
 }

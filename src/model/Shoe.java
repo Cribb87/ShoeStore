@@ -40,6 +40,9 @@ public class Shoe {
         categories.add(category);
     }
 
+    public Price getPrice() {
+        return price;
+    }
 
     @Override
     public String toString() {

@@ -22,4 +22,12 @@ public class ShoeGroup {
     public String toString() {
         return  shoe + " Antal: " + quantity;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Shoe getShoe() {
+        return shoe;
+    }
 }

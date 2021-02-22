@@ -36,7 +36,7 @@ public class View {
         printAllShoes();
         while (true) {
             addToCart();
-            System.out.print("Vill du lägga till fler varor? ja/nej: ");
+            System.out.print("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
             choice = scan.nextLine().trim();
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
@@ -50,9 +50,9 @@ public class View {
     public void login(){
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Användarnamn: ");
+            System.out.print("Användarnamn: "); System.out.flush();
             String userName = scanner.nextLine();
-            System.out.print("Lösenord: ");
+            System.out.print("Lösenord: ");System.out.flush();
             String password = scanner.nextLine();
             if (controller.login(userName, password)) {
                 System.out.println("Du är nu inloggad");
@@ -66,7 +66,6 @@ public class View {
         AtomicInteger counter = new AtomicInteger(1);
         controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() +": "+ e));
     }
-
 
     // stored procedures, produkten läggs till i beställningen
     public void addToCart(){
@@ -91,7 +90,7 @@ public class View {
 
         if (order!= null) {
             System.out.println("Tack för ditt köp");
-            System.out.print("Vill du se ordern? ja/nej: ");
+            System.out.print("Vill du se ordern? ja/nej: ");System.out.flush();
             String choice = scanner.nextLine().trim();
             if (choice.equalsIgnoreCase("ja"))
                 System.out.println(order);

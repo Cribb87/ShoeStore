@@ -30,6 +30,7 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
+            System.out.println(createReview(1,2,"inte bra3"));
         }
 
         private Connection addConnection() throws SQLException {
@@ -167,19 +168,25 @@ public class Repository {
             return order;
         }
 
-    public String createReview(int rateID, int shoeID, String comment) {
+        public String createReview(int rateID, int shoeID, String comment) {
         try (Connection connection = addConnection();
              CallableStatement statement = connection.prepareCall("CALL addreview (?,?,?,?)")){
                 statement.setInt(1, customerID);
                 statement.setInt(2, rateID);
                 statement.setInt(3, shoeID);
                 statement.setString(4, comment);
-                statement.execute();
-                return "Betyget är tillagt";
+                ResultSet rs = statement.executeQuery();
+
+                if (rs.next()){
+                     String errorText = rs.getString("error");
+                     if (!errorText.isEmpty())
+                    return "Det gick inte att lägga till betyget";
+                }
+
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return "Det gick inte att lägga till betyget";
+            return "Betyget är tillagt";
     }
 }

@@ -1,8 +1,7 @@
 package view;
 
 import controller.Controller;
-import model.Order;
-import model.Shoe;
+import model.*;
 
 import java.sql.*;
 import java.util.InputMismatchException;
@@ -27,7 +26,6 @@ public class View {
     }
 
     public void promptUser(){
-        int alternative;
         String choice;
         Scanner scan = new Scanner(System.in);
 
@@ -42,8 +40,6 @@ public class View {
                 break;
         }
         printOrder();
-
-
     }
 
     // skriv in användarnamn & lösenord
@@ -100,7 +96,10 @@ public class View {
     // betyg och kommentarer ska kunna GES på produkter (VG)
 
     // betyg och kommentarer ska kunna SES på produkter (VG)
-
+  /*  public List<Reviews> readReviews (Shoe shoe){
+        List<Reviews> getReviews = new ArrayList<>();
+    }
+*/
     public static void main(String[] args) throws SQLException {
         View view = new View();
         view.promptUser();

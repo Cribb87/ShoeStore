@@ -1,6 +1,5 @@
 package model;
 
-import javax.sound.midi.ShortMessage;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -131,7 +130,7 @@ public class Repository {
 
                 if (orderID == 0)
                     orderID = statement.getInt(2);
-                return "Skon har laggts till i din order";
+                return "Skon har lagts till i din order";
 
             }catch (SQLException e){
                 e.printStackTrace();
@@ -167,4 +166,20 @@ public class Repository {
             }
             return order;
         }
+
+    public String createReview(int rateID, int shoeID, String comment) {
+        try (Connection connection = addConnection();
+             CallableStatement statement = connection.prepareCall("CALL addreview (?,?,?,?)")){
+                statement.setInt(1, customerID);
+                statement.setInt(2, rateID);
+                statement.setInt(3, shoeID);
+                statement.setString(4, comment);
+                statement.execute();
+                return "Betyget är tillagt";
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return "Det gick inte att lägga till betyget";
+    }
 }

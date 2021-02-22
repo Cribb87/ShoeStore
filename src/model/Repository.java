@@ -31,8 +31,6 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
-
-
         }
 
         private Connection addConnection() throws SQLException {
@@ -72,8 +70,6 @@ public class Repository {
                             s.addColor(new ShoeColor(rs.getInt("colorGroup.colorid"),rs.getString("color.shade")));
                     }
                 }
-
-
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -124,7 +120,7 @@ public class Repository {
             return false;
         }
 
-        public String addToCart(int customerID,int shoeID){
+        public String addToCart(int shoeID){
             try (Connection connection = addConnection();
             CallableStatement statement = connection.prepareCall("call addToCart(?,?,?)")){
                 statement.setInt(1,customerID);

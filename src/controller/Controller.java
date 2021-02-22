@@ -1,6 +1,6 @@
 package controller;
 
-import model.Customer;
+import model.Order;
 import model.Repository;
 import model.Shoe;
 
@@ -14,18 +14,27 @@ import java.util.List;
  * Package: controller
  */
 public class Controller {
-    Repository rep;
+    Repository repository;
 
     public Controller(){
-        rep = new Repository();
+        repository = new Repository();
     }
 
     public List<Shoe> getAllShoes(){
-        return rep.getAllShoes();
+        return repository.getAllShoes();
     }
 
-    public Customer loggin(String username, String password){
-        return rep.checkPassword(username,password);
+    public Boolean login(String username, String password){
+        return repository.checkPassword(username,password);
     }
+
+    public String addToCart(int shoeId){
+        return repository.addToCart(shoeId);
+    }
+
+    public Order getLastOrder(){
+        return repository.getOrder();
+    }
+
 
 }

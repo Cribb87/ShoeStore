@@ -16,15 +16,12 @@ import java.util.Properties;
  */
 public class Repository {
         private Properties properties = new Properties();
-        private int orderID = 6;
-
-
+        private int orderID;
+        private int customerID;
 
 
         public static void main(String[] args) {
             Repository r = new Repository();
-//        System.out.println(r.checkPassword("Froyo Doe","lösenord"));
-
         }
 
         public Repository(){
@@ -34,10 +31,6 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
-
-
-           System.out.println(getOrder());
-
         }
 
         private Connection addConnection() throws SQLException {
@@ -77,8 +70,6 @@ public class Repository {
                             s.addColor(new ShoeColor(rs.getInt("colorGroup.colorid"),rs.getString("color.shade")));
                     }
                 }
-
-
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -108,32 +99,28 @@ public class Repository {
             return shoes;
         }
 
-        public Customer checkPassword(String username, String password){
-            ResultSet rs = null;
+        public Boolean checkPassword(String username, String password){
             try(Connection connection = addConnection();
                 PreparedStatement statement = connection.prepareStatement("select * from customer where name = ?;")){
                 statement.setString(1,username);
-                rs = statement.executeQuery();
+                ResultSet rs = statement.executeQuery();
 
                 if (rs.next()) {
                     String tName = rs.getString("name");
                     String tPassword = rs.getString("password");
 
-                    if (username.equals(tName) && password.equals(tPassword))
-                        return new Customer(rs.getInt("id"));
-                    else if (tName.isEmpty() || tPassword.isEmpty()){
-                        System.out.println("Du måste ange användarnamn och lösenord");
+                    if (username.equals(tName) && password.equals(tPassword)) {
+                        customerID = rs.getInt("id");
+                        return true;
                     }
                 }
-
-
             }catch (Exception e){
                 e.printStackTrace();
             }
-            return null;
-    }
+            return false;
+        }
 
-        public String addToCart(int customerID,int shoeID){
+        public String addToCart(int shoeID){
             try (Connection connection = addConnection();
             CallableStatement statement = connection.prepareCall("call addToCart(?,?,?)")){
                 statement.setInt(1,customerID);
@@ -144,7 +131,7 @@ public class Repository {
 
                 if (orderID == 0)
                     orderID = statement.getInt(2);
-                return "Skon har lagts till i din order";
+                return "Skon har laggts till i din order";
 
             }catch (SQLException e){
                 e.printStackTrace();

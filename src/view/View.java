@@ -43,7 +43,7 @@ public class View {
 
         switch (alternative) {
             case 1 -> repo.getOrder();
-            case 2 -> repo.addToCart(1, 1); // ändra denna
+            case 2 -> repo.addToCart( 1); // ändra denna
             case 3 -> Rating.class.toString();
             case 4 -> 
             case 5 -> stockBalance();

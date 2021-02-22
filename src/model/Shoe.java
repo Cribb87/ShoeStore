@@ -47,6 +47,6 @@ public class Shoe {
         String color = colors.stream().map(String::valueOf).collect(Collectors.joining("/"));
         return brand + " Kategori: " + category
                 +" Storlek: " + size +  " Färg: " + color
-                + " Pris: " + price  ;
+                + " Pris: " + price;
     }
 }

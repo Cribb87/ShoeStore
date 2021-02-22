@@ -1,6 +1,5 @@
 package controller;
 
-import model.Customer;
 import model.Repository;
 import model.Shoe;
 
@@ -24,7 +23,7 @@ public class Controller {
         return rep.getAllShoes();
     }
 
-    public Boolean loggin(String username, String password){
+    public Boolean login(String username, String password){
         return rep.checkPassword(username,password);
     }
 

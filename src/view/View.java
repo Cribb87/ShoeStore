@@ -101,8 +101,6 @@ public class View {
 
     // betyg och kommentarer ska kunna SES på produkter (VG)
 
-
-
     public static void main(String[] args) throws SQLException {
         View view = new View();
         view.promptUser();

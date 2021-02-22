@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -32,11 +32,9 @@ public class Order {
     @Override
     public String toString() {
         String shoe = shoes.stream().map(String::valueOf).collect(Collectors.joining("\n"));
-        int amount =0;
+        AtomicInteger amount = new AtomicInteger();
         String currency = ": " + shoes.get(0).getShoe().getPrice().getCurrency();
-        for (ShoeGroup s: shoes){
-            amount += s.getQuantity() * s.getShoe().getPrice().getAmount();
-        }
+        shoes.forEach(s -> amount.addAndGet(s.getQuantity() * s.getShoe().getPrice().getAmount()));
 
         return "OrderID: " + id +
                 "\nDatum: " + orderDate +

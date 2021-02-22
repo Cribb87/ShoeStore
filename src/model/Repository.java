@@ -1,5 +1,6 @@
 package model;
 
+import javax.sound.midi.ShortMessage;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
+
+
         }
 
         private Connection addConnection() throws SQLException {
@@ -121,11 +124,11 @@ public class Repository {
             return false;
         }
 
-        public String addToCart(int shoeID){
+        public String addToCart(int customerID,int shoeID){
             try (Connection connection = addConnection();
             CallableStatement statement = connection.prepareCall("call addToCart(?,?,?)")){
                 statement.setInt(1,customerID);
-                statement.setInt(2, orderID);
+                statement.setInt(2,orderID);
                 statement.setInt(3,shoeID);
                 statement.registerOutParameter(2,Types.INTEGER);
                 statement.execute();
@@ -154,7 +157,7 @@ public class Repository {
             try(Connection connection = addConnection();
             PreparedStatement statement = connection.prepareStatement("select * from shoegroup " +
                     "join orders on orders.id = shoegroup.orderID where shoegroup.orderid = ?")) {
-                statement.setInt(1, orderID);
+                statement.setInt(1,orderID);
                 ResultSet rs = statement.executeQuery();
                 while(rs.next()){
                     if (order == null)

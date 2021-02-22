@@ -121,6 +121,9 @@ public class Repository {
 
                     if (username.equals(tName) && password.equals(tPassword))
                         return new Customer(rs.getInt("id"));
+                    else if (tName.isEmpty() || tPassword.isEmpty()){
+                        System.out.println("Du måste ange användarnamn och lösenord");
+                    }
                 }
 
 
@@ -128,7 +131,7 @@ public class Repository {
                 e.printStackTrace();
             }
             return null;
-        }
+    }
 
         public String addToCart(int customerID,int shoeID){
             try (Connection connection = addConnection();
@@ -141,7 +144,7 @@ public class Repository {
 
                 if (orderID == 0)
                     orderID = statement.getInt(2);
-                return "Skon har laggts till i din order";
+                return "Skon har lagts till i din order";
 
             }catch (SQLException e){
                 e.printStackTrace();

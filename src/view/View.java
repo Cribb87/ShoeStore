@@ -1,5 +1,6 @@
 package view;
 
+import model.Rating;
 import model.Repository;
 import model.Reviews;
 
@@ -32,19 +33,11 @@ public class View {
 
         alternative = scan.nextInt();
 
-        switch (alternative){
-            case 1:
-                repo.getOrder();
-                break;
-            case 2:
-                repo.addToCart();
-                break;
-            case 3:
-
-                break;
-            case 4:
-                stockBalance();
-                break;
+        switch (alternative) {
+            case 1 -> repo.getOrder();
+            case 2 -> repo.addToCart(1, 1); // ändra denna
+            case 3 -> Rating.class.toString();
+            case 4 -> stockBalance();
         }
 
       /*  while(true) {

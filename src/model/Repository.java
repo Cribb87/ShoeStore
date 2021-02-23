@@ -30,7 +30,6 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
-            System.out.println(createReview(1,2,"inte bra3"));
         }
 
         private Connection addConnection() throws SQLException {

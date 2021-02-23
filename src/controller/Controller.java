@@ -36,5 +36,11 @@ public class Controller {
         return repository.getOrder();
     }
 
+    public String addReview(int rateID, int shoeID, String comment){
+        return repository.createReview(rateID,shoeID,comment);
+    }
 
+    public String getReview(int shoeID){
+        return repository.readReviews(shoeID);
+    }
 }

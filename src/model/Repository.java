@@ -30,6 +30,7 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
+           // System.out.println(createReview(1,2,"inte bra"));
         }
 
         private Connection addConnection() throws SQLException {
@@ -50,8 +51,6 @@ public class Repository {
                             s.addCategory(new ShoeCategory(rs.getInt("categorygroup.CategoryID"),rs.getString("category.name")));
                     }
                 }
-
-
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -89,7 +88,6 @@ public class Repository {
                     Size size = new Size(rs.getInt("shoe.sizeId"),rs.getInt("size.number"));
                     shoes.add(new Shoe(id,price,brand,size));
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -189,16 +187,28 @@ public class Repository {
             return "Betyget är tillagt";
     }
 
-    public List<Reviews> readReviews (Shoe shoe) {
-        List<Reviews> getReviews = new ArrayList<>();
+    public String readReviews (int shoeID) {
+        String getReviews = "";
         try (Connection connection = addConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * from averageRate" +
-                     "join rating on rating.id = reviews.ratingID where shoe.id = ?")) {
-            statement.setInt(1, shoe.getId());
-            ResultSet resultSet = statement.executeQuery();
+             PreparedStatement statement1 = connection.prepareStatement(" SELECT  * from averageRate where id = ?");
+             PreparedStatement statement2 = connection.prepareStatement(" SELECT * from reviews where ShoeID = ?"))
+        {
+            statement1.setInt(1,shoeID);
+            statement2.setInt(1,shoeID);
+            ResultSet resultSet1 = statement1.executeQuery();
+            ResultSet resultSet2 = statement2.executeQuery();
+                while (resultSet1.next()) {
+                    int rating = resultSet1.getInt("rate");
+                    if (rating == 0)
+                        return "Varan är inte betygsatt ännu";
+                    getReviews += "Medelvärde: " + rating;
+                }
+                while (resultSet2.next()) {
+                    getReviews += "\nRecensioner: " + resultSet2.getString("comment");
+                }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return readReviews(shoe);
+        return getReviews;
     }
 }

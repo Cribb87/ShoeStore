@@ -32,8 +32,8 @@ public class View {
         System.out.println("Välkommen till SkoShoppen");
         login();
         printAllShoes();
-        chooseAlternative();
         while (true) {
+            chooseAlternative();
             System.out.println("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
             choice = scan.nextLine().trim();
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
@@ -67,6 +67,7 @@ public class View {
         Scanner scanner = new Scanner(System.in);
         List<Shoe> shoes = controller.getAllShoes();
         int product = 0;
+        System.out.println("Välj en produkt (ange med siffra)");
         try {
             product = scanner.nextInt();
             if (shoes.size() - 1 < product || 0 > product)

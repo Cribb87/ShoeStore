@@ -74,7 +74,7 @@ public class View {
             while(true) {
                 System.out.print("Välj en sko: ");
                 System.out.flush();
-                product = scanInt();
+                product = scanInt()-1;
                 if (shoes.size() - 1 < product || 0 > product) {
                     System.out.println("Produkten finns inte!");
                 }
@@ -137,9 +137,10 @@ public class View {
         if (choice.equalsIgnoreCase("ja")) {
             while (!o.getShoes().isEmpty()) {
                 while (true) {
-                    System.out.println("Välj en sko!");
                     o.printForReview();
-                    shoe = scanInt();
+                    System.out.print("Välj en sko: ");
+                    System.out.flush();
+                    shoe = scanInt()-1;
                     if (shoe >=0 && shoe <= o.getShoes().size()-1)
                         break;
                 }
@@ -177,6 +178,7 @@ public class View {
         int inter = -1;
         try {
             inter = scanner.nextInt();
+            System.out.println(inter);
         } catch (InputMismatchException e) {
             System.out.println("Fel inmatning.");
         }

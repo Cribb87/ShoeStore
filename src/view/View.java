@@ -32,9 +32,9 @@ public class View {
         System.out.println("Välkommen till SkoShoppen");
         login();
         printAllShoes();
+        chooseAlternative();
         while (true) {
-            chooseAlternative();
-            System.out.print("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
+            System.out.println("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
             choice = scan.nextLine().trim();
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
@@ -69,19 +69,20 @@ public class View {
         int product = 0;
         try {
             product = scanner.nextInt();
-            if (shoes.size() - 1 < product || 0 > product) {
+            if (shoes.size() - 1 < product || 0 > product)
                 System.out.println("Produkten finns inte!");
-            } else
+            else
                 System.out.println("1. Se reviews \n2. Lägg till sko");
-       // } catch (InputMismatchException e) {
 
                 int review = scanner.nextInt();
+                scanner.nextLine();
                 if (review == 1) {
                     System.out.println(controller.getReview(product));
-                    System.out.println("Vill du lägga till denna sko i varukorgen? \n1. Ja \n2. Nej");
-                    if (review == 1)
-                        review = 2;
-                       // System.out.println(controller.addToCart(shoes.get(product).getId()));
+                    System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej"); System.out.flush();
+                    String addShoe = scanner.nextLine().trim();
+                    if (addShoe.equalsIgnoreCase("ja")) {
+                        System.out.println(controller.addToCart(shoes.get(product).getId()));
+                    }
                     else {
                         System.out.println("Skon ej tillagd");
                         chooseAlternative();
@@ -94,9 +95,6 @@ public class View {
             } catch (InputMismatchException e1) {
                 System.out.println("Fel inmatning");
             }
-        /*} catch (Exception e) {
-            System.out.println("Fel inmatning!");
-        }*/
     }
 
     // möjlighet att skriva ut alla produkter som lagts i varukorgen

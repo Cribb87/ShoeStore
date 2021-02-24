@@ -30,4 +30,8 @@ public class ShoeGroup {
     public Shoe getShoe() {
         return shoe;
     }
+
+    public String getShoeString() {
+        return String.valueOf(shoe);
+    }
 }

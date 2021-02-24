@@ -93,7 +93,7 @@ public class View {
                     else {
                         System.out.println("Skon ej tillagd");
                     }
-                } else if (review == 2) {
+                } else {
                     System.out.println(controller.addToCart(shoes.get(product).getId()));
                 }
     }

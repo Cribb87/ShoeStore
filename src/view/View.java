@@ -72,10 +72,14 @@ public class View {
         int product = 0;
         System.out.println("Välj en produkt (ange med siffra)");
         try {
-            product = scanner.nextInt();
-            if (shoes.size() - 1 < product || 0 > product)
-                System.out.println("Produkten finns inte!");
-            else
+            while(true) {
+                product = pickShoesForAlternative();
+                if (shoes.size() - 1 < product || 0 > product) {
+                    System.out.println("Produkten finns inte!");
+                }
+                else
+                    break;
+            }
                 System.out.println("1. Se reviews \n2. Lägg till sko");
 
                 int review = scanner.nextInt();
@@ -181,6 +185,18 @@ public class View {
         int shoe = -1;
         System.out.println("Välj en sko!");
         order.printForReview();
+        try {
+            shoe = scanner.nextInt() -1;
+        } catch (InputMismatchException e) {
+            System.out.println("Fel inmatning.");
+        }
+        return shoe;
+    }
+
+    public int pickShoesForAlternative(){
+        Scanner scanner = new Scanner(System.in);
+        int shoe = -1;
+        System.out.println("Välj en sko!");
         try {
             shoe = scanner.nextInt() -1;
         } catch (InputMismatchException e) {

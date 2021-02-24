@@ -186,7 +186,7 @@ public class Repository {
             return "Betyget är tillagt";
     }
 
-    public String readReviews (int shoeID) {
+        public String readReviews (int shoeID) {
         String getReviews = "";
         try (Connection connection = addConnection();
              PreparedStatement statement1 = connection.prepareStatement(" SELECT  * from averageRate where id = ?");

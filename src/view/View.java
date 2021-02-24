@@ -134,7 +134,8 @@ public class View {
 
                 o.getShoes().remove(shoe);
                 if (!o.getShoes().isEmpty()) {
-                    System.out.println("Vill du betygsätta fler skor? ja/nej");
+                    System.out.print("Vill du betygsätta fler skor? ja/nej: ");
+                    System.out.flush();
                     choice = scanner.nextLine();
                     if (!choice.equalsIgnoreCase("ja"))
                         break;

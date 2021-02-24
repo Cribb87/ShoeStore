@@ -25,7 +25,7 @@ public class View {
         controller = new Controller();
     }
 
-    public void promptUser() {
+    public void promptUser(){
         String choice;
         Scanner scan = new Scanner(System.in);
 
@@ -33,9 +33,8 @@ public class View {
         login();
         printAllShoes();
         while (true) {
-            addToCart();
-            System.out.print("Vill du lägga till fler varor? ja/nej: ");
-            System.out.flush();
+            chooseAlternative();
+            System.out.println("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
             choice = scan.nextLine().trim();
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
@@ -67,20 +66,44 @@ public class View {
         controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() + ": " + e));
     }
 
-    // stored procedures, produkten läggs till i beställningen
-    public void addToCart() {
+    public void chooseAlternative() {
         Scanner scanner = new Scanner(System.in);
         List<Shoe> shoes = controller.getAllShoes();
-        System.out.println("Välj en produkt du vill lägga till i varukorgen.");
+        int product = 0;
         try {
-            int listIndex = scanner.nextInt() - 1;
-            if (shoes.size() - 1 < listIndex || 0 > listIndex) {
-                System.out.println("Produkten finns inte!");
-            } else
-                System.out.println(controller.addToCart(shoes.get(listIndex).getId()));
-        } catch (InputMismatchException e) {
-            System.out.println("Fel inmatning!");
-        }
+            while(true) {
+                System.out.print("Välj en sko: ");
+                System.out.flush();
+                product = scanInt()-1;
+                if (shoes.size() - 1 < product || 0 > product) {
+                    System.out.println("Produkten finns inte!");
+                }
+                else
+                    break;
+            }
+                System.out.println("1. Se reviews \n2. Lägg till sko");
+
+                int review = scanner.nextInt();
+                scanner.nextLine();
+                if (review == 1) {
+                    System.out.println(controller.getReview(shoes.get(product).getId()));
+                    System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej"); System.out.flush();
+                    String addShoe = scanner.nextLine().trim();
+                    if (addShoe.equalsIgnoreCase("ja")) {
+                        System.out.println(controller.addToCart(shoes.get(product).getId()));
+                    }
+                    else {
+                        System.out.println("Skon ej tillagd");
+                        chooseAlternative();
+                    }
+                    // stored procedures, produkten läggs till i beställningen
+                } else if (review == 2) {
+                    System.out.println(controller.addToCart(shoes.get(product).getId()));
+                } else
+                    System.out.println("Du måste ange siffran 1 eller 2");
+            } catch (InputMismatchException e1) {
+                System.out.println("Fel inmatning");
+            }
     }
 
     // möjlighet att skriva ut alla produkter som lagts i varukorgen
@@ -114,12 +137,17 @@ public class View {
         if (choice.equalsIgnoreCase("ja")) {
             while (!o.getShoes().isEmpty()) {
                 while (true) {
-                    shoe = pickShoeForReview(o);
+                    o.printForReview();
+                    System.out.print("Välj en sko: ");
+                    System.out.flush();
+                    shoe = scanInt()-1;
                     if (shoe >=0 && shoe <= o.getShoes().size()-1)
                         break;
                 }
                 while (rate > 4 || rate < 1) {
-                    rate = pickRate();
+                    System.out.print("Välj ett betyg 1 - 4: ");
+                    System.out.flush();
+                    rate = scanInt();
                 }
 
                 System.out.print("Kommentar: ");
@@ -131,7 +159,7 @@ public class View {
                 int shoeID = o.getShoes().get(shoe).getShoe().getId();
                 System.out.println(controller.addReview(rate, shoeID, comment));
 
-
+                rate = 0;
                 o.getShoes().remove(shoe);
                 if (!o.getShoes().isEmpty()) {
                     System.out.print("Vill du betygsätta fler skor? ja/nej: ");
@@ -146,31 +174,19 @@ public class View {
         }
     }
 
-    public int pickRate() {
+    public int scanInt() {
         Scanner scanner = new Scanner(System.in);
-        int rate = 0;
-        System.out.print("Välj ett betyg 1 - 4: ");
-        System.out.flush();
+        int inter = -1;
         try {
-            rate = scanner.nextInt();
+            inter = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Fel inmatning.");
         }
-        return rate;
+        return inter;
     }
 
-    public int pickShoeForReview(Order order) {
-        Scanner scanner = new Scanner(System.in);
-        int shoe = -1;
-        System.out.println("Välj en sko!");
-        order.printForReview();
-        try {
-            shoe = scanner.nextInt() -1;
-        } catch (InputMismatchException e) {
-            System.out.println("Fel inmatning.");
-        }
-        return shoe;
-    }
+
+
 
     public static void main(String[] args) {
         View view = new View();

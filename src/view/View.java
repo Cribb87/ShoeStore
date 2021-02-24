@@ -70,7 +70,6 @@ public class View {
         Scanner scanner = new Scanner(System.in);
         List<Shoe> shoes = controller.getAllShoes();
         int product = 0;
-        System.out.println("Välj en produkt (ange med siffra)");
         try {
             while(true) {
                 product = pickShoesForAlternative();
@@ -85,7 +84,7 @@ public class View {
                 int review = scanner.nextInt();
                 scanner.nextLine();
                 if (review == 1) {
-                    System.out.println(controller.getReview(product));
+                    System.out.println(controller.getReview(shoes.get(product).getId()));
                     System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej"); System.out.flush();
                     String addShoe = scanner.nextLine().trim();
                     if (addShoe.equalsIgnoreCase("ja")) {
@@ -153,7 +152,7 @@ public class View {
                 int shoeID = o.getShoes().get(shoe).getShoe().getId();
                 System.out.println(controller.addReview(rate, shoeID, comment));
 
-
+                rate = 0;
                 o.getShoes().remove(shoe);
                 if (!o.getShoes().isEmpty()) {
                     System.out.println("Vill du betygsätta fler skor? ja/nej");

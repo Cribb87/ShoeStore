@@ -127,11 +127,9 @@ public class Repository {
                    if (!errorText.isEmpty())
                        return "Det gick inte att lägga till varan.";
                }
-
             }catch (SQLException e){
                 e.printStackTrace();
             }
-
             return "Skon har lagts till i din order.";
         }
 
@@ -156,8 +154,6 @@ public class Repository {
                         order = new Order(orderID, new Customer(rs.getInt("orders.customerID")), rs.getDate("orders.orderdate"));
                     order.addShoeGroup(new ShoeGroup(rs.getInt("shoegroup.id"),getShoe(shoes,rs.getInt("shoegroup.shoeid")),rs.getInt("shoegroup.Quantity")));
                 }
-
-
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -178,7 +174,6 @@ public class Repository {
                      if (!errorText.isEmpty())
                     return "Det gick inte att lägga till betyget";
                 }
-
         }
         catch (SQLException e) {
             e.printStackTrace();

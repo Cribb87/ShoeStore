@@ -19,8 +19,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class View {
     private Controller controller;
 
-
-    // låta användaren lägga in produkter. ska ej kunna se databasens IDn
     public View() {
         controller = new Controller();
     }
@@ -43,7 +41,6 @@ public class View {
             createReviews();
     }
 
-    // skriv in användarnamn & lösenord
     public void login() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -60,7 +57,6 @@ public class View {
         }
     }
 
-    // skriv ut alla produkter i lager och välj produkt
     public void printAllShoes() {
         AtomicInteger counter = new AtomicInteger(1);
         controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() + ": " + e));
@@ -74,7 +70,7 @@ public class View {
             while(true) {
                 System.out.print("Välj en sko: ");
                 System.out.flush();
-                product = scanInt()-1;
+                product = scanInt("")-1;
                 if (shoes.size() - 1 < product || 0 > product) {
                     System.out.println("Produkten finns inte!");
                 }
@@ -96,7 +92,6 @@ public class View {
                         System.out.println("Skon ej tillagd");
                         chooseAlternative();
                     }
-                    // stored procedures, produkten läggs till i beställningen
                 } else if (review == 2) {
                     System.out.println(controller.addToCart(shoes.get(product).getId()));
                 } else
@@ -106,7 +101,6 @@ public class View {
             }
     }
 
-    // möjlighet att skriva ut alla produkter som lagts i varukorgen
     public boolean printOrder() {
         Scanner scanner = new Scanner(System.in);
         Order order = controller.getLastOrder();
@@ -123,7 +117,6 @@ public class View {
         return false;
     }
 
-    // betyg och kommentarer ska kunna GES på produkter (VG)
     public void createReviews() {
         Scanner scanner = new Scanner(System.in);
         String choice = "";
@@ -140,14 +133,14 @@ public class View {
                     o.printForReview();
                     System.out.print("Välj en sko: ");
                     System.out.flush();
-                    shoe = scanInt()-1;
+                    shoe = scanInt("Produkten finns inte!3")-1;
                     if (shoe >=0 && shoe <= o.getShoes().size()-1)
                         break;
                 }
                 while (rate > 4 || rate < 1) {
                     System.out.print("Välj ett betyg 1 - 4: ");
                     System.out.flush();
-                    rate = scanInt();
+                    rate = scanInt("Produkten finns inte!2");
                 }
 
                 System.out.print("Kommentar: ");
@@ -167,25 +160,21 @@ public class View {
                     if (!choice.equalsIgnoreCase("ja"))
                         break;
                 }
-
             }
-
         }
     }
 
-    public int scanInt() {
+    public int scanInt(String error) {
         Scanner scanner = new Scanner(System.in);
         int inter = -1;
         try {
             inter = scanner.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Fel inmatning.");
+           // System.out.println("Fel inmatning.");
+            System.out.println(error);
         }
         return inter;
     }
-
-
-
 
     public static void main(String[] args) {
         View view = new View();

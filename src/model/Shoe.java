@@ -19,13 +19,11 @@ public class Shoe {
     private List<ShoeColor> colors = new ArrayList<>();
     private List<ShoeCategory> categories = new ArrayList<>();
 
-
     public Shoe(int id, Price price, Brand brand, Size size) {
         this.id = id;
         this.price = price;
         this.brand = brand;
         this.size = size;
-
     }
 
     public int getId() {

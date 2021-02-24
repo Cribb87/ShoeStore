@@ -29,6 +29,15 @@ public class Order {
         shoes.add(shoeGroup);
     }
 
+    public void printForReview(){
+        AtomicInteger counter = new AtomicInteger(1);
+        shoes.forEach(s -> System.out.println(counter.getAndIncrement() + ": " + s.getShoeString()));
+    }
+
+    public List<ShoeGroup> getShoes() {
+        return shoes;
+    }
+
     @Override
     public String toString() {
         String shoe = shoes.stream().map(String::valueOf).collect(Collectors.joining("\n"));
@@ -41,4 +50,5 @@ public class Order {
                 "\nSkor: " + shoe +
                 "\nSumma: " + amount + currency;
     }
+
 }

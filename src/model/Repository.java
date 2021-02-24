@@ -18,11 +18,6 @@ public class Repository {
         private int orderID;
         private int customerID;
 
-
-        public static void main(String[] args) {
-            Repository r = new Repository();
-        }
-
         public Repository(){
             try{
                 properties.load(new FileInputStream("src/model/properties/Setting.Properties"));
@@ -30,7 +25,6 @@ public class Repository {
             } catch (Exception e){
                 e.printStackTrace();
             }
-           // System.out.println(createReview(1,2,"inte bra"));
         }
 
         private Connection addConnection() throws SQLException {
@@ -124,16 +118,21 @@ public class Repository {
                 statement.setInt(2,orderID);
                 statement.setInt(3,shoeID);
                 statement.registerOutParameter(2,Types.INTEGER);
-                statement.execute();
-
+                ResultSet rs = statement.executeQuery();
                 if (orderID == 0)
                     orderID = statement.getInt(2);
-                return "Skon har lagts till i din order";
+
+               if (rs.next()){
+                   String errorText = rs.getString("error");
+                   if (!errorText.isEmpty())
+                       return "Det gick inte att lägga till varan.";
+               }
 
             }catch (SQLException e){
                 e.printStackTrace();
             }
-            return "Något blev fel";
+
+            return "Skon har lagts till i din order.";
         }
 
         private Shoe getShoe(List<Shoe> shoes, int shoeId){
@@ -181,8 +180,8 @@ public class Repository {
                 }
 
         }
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
+        catch (SQLException e) {
+            e.printStackTrace();
         }
             return "Betyget är tillagt";
     }
@@ -206,8 +205,8 @@ public class Repository {
                 while (resultSet2.next()) {
                     getReviews += "\nRecensioner: " + resultSet2.getString("comment");
                 }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return getReviews;
     }

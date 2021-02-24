@@ -39,16 +39,19 @@ public class View {
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
         }
-        printOrder();
+        if (printOrder())
+            createReviews();
     }
 
     // skriv in användarnamn & lösenord
-    public void login(){
+    public void login() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Användarnamn: "); System.out.flush();
+            System.out.print("Användarnamn: ");
+            System.out.flush();
             String userName = scanner.nextLine();
-            System.out.print("Lösenord: ");System.out.flush();
+            System.out.print("Lösenord: ");
+            System.out.flush();
             String password = scanner.nextLine();
             if (controller.login(userName, password)) {
                 System.out.println("Du är nu inloggad");
@@ -58,9 +61,9 @@ public class View {
     }
 
     // skriv ut alla produkter i lager och välj produkt
-    public void printAllShoes(){
+    public void printAllShoes() {
         AtomicInteger counter = new AtomicInteger(1);
-        controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() +": "+ e));
+        controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() + ": " + e));
     }
 
     public void chooseAlternative() {
@@ -99,40 +102,94 @@ public class View {
     }
 
     // möjlighet att skriva ut alla produkter som lagts i varukorgen
-    public void printOrder(){
+    public boolean printOrder() {
         Scanner scanner = new Scanner(System.in);
         Order order = controller.getLastOrder();
 
-        if (order!= null) {
+        if (order != null) {
             System.out.println("Tack för ditt köp");
-            System.out.print("Vill du se ordern? ja/nej: ");System.out.flush();
+            System.out.print("Vill du se ordern? ja/nej: ");
+            System.out.flush();
             String choice = scanner.nextLine().trim();
             if (choice.equalsIgnoreCase("ja"))
                 System.out.println(order);
-        }else System.out.println("Du har inget i din order!");
+            return true;
+        } else System.out.println("Du har inget i din order!");
+        return false;
     }
 
     // betyg och kommentarer ska kunna GES på produkter (VG)
-   /* public void addReview(){
+    public void createReviews() {
         Scanner scanner = new Scanner(System.in);
-        int rateID = scanner.nextInt();
-        int shoeID = scanner.nextInt();
-        String comment = scanner.nextLine();
-        controller.addReview(rateID,shoeID,comment);
+        String choice = "";
+        int shoe = -1;
+        int rate = 0;
+        String comment = "";
+        Order o = controller.getLastOrder();
+        System.out.print("Vill du betygsätta en sko? ja/nej: ");
+        System.out.flush();
+        choice = scanner.nextLine();
+        if (choice.equalsIgnoreCase("ja")) {
+            while (!o.getShoes().isEmpty()) {
+                while (true) {
+                    shoe = pickShoeForReview(o);
+                    if (shoe >=0 && shoe <= o.getShoes().size()-1)
+                        break;
+                }
+                while (rate > 4 || rate < 1) {
+                    rate = pickRate();
+                }
+
+                System.out.print("Kommentar: ");
+                System.out.flush();
+                comment = scanner.nextLine();
+
+                if (comment == null)
+                    comment = "";
+                int shoeID = o.getShoes().get(shoe).getShoe().getId();
+                System.out.println(controller.addReview(rate, shoeID, comment));
+
+
+                o.getShoes().remove(shoe);
+                if (!o.getShoes().isEmpty()) {
+                    System.out.println("Vill du betygsätta fler skor? ja/nej");
+                    choice = scanner.nextLine();
+                    if (!choice.equalsIgnoreCase("ja"))
+                        break;
+                }
+
+            }
+
+        }
+    }
+
+    public int pickRate() {
+        Scanner scanner = new Scanner(System.in);
+        int rate = 0;
+        System.out.print("Välj ett betyg 1 - 4: ");
+        System.out.flush();
         try {
-
+            rate = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Fel inmatning.");
         }
-    }*/
+        return rate;
+    }
 
-    // betyg och kommentarer ska kunna SES på produkter (VG)
-    public void readReview (int shoeID){
-
-        System.out.println(controller.getReview(shoeID));
-
+    public int pickShoeForReview(Order order) {
+        Scanner scanner = new Scanner(System.in);
+        int shoe = -1;
+        System.out.println("Välj en sko!");
+        order.printForReview();
+        try {
+            shoe = scanner.nextInt() -1;
+        } catch (InputMismatchException e) {
+            System.out.println("Fel inmatning.");
         }
+        return shoe;
+    }
 
-
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         View view = new View();
         view.promptUser();
     }

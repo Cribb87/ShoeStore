@@ -171,7 +171,7 @@ public class View {
         return shoe;
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         View view = new View();
         view.promptUser();
     }

@@ -72,7 +72,9 @@ public class View {
         int product = 0;
         try {
             while(true) {
-                product = pickShoesForAlternative();
+                System.out.print("Välj en sko: ");
+                System.out.flush();
+                product = scanInt();
                 if (shoes.size() - 1 < product || 0 > product) {
                     System.out.println("Produkten finns inte!");
                 }
@@ -135,12 +137,16 @@ public class View {
         if (choice.equalsIgnoreCase("ja")) {
             while (!o.getShoes().isEmpty()) {
                 while (true) {
-                    shoe = pickShoeForReview(o);
+                    System.out.println("Välj en sko!");
+                    o.printForReview();
+                    shoe = scanInt();
                     if (shoe >=0 && shoe <= o.getShoes().size()-1)
                         break;
                 }
                 while (rate > 4 || rate < 1) {
-                    rate = pickRate();
+                    System.out.print("Välj ett betyg 1 - 4: ");
+                    System.out.flush();
+                    rate = scanInt();
                 }
 
                 System.out.print("Kommentar: ");
@@ -166,43 +172,19 @@ public class View {
         }
     }
 
-    public int pickRate() {
+    public int scanInt() {
         Scanner scanner = new Scanner(System.in);
-        int rate = 0;
-        System.out.print("Välj ett betyg 1 - 4: ");
-        System.out.flush();
+        int inter = -1991;
         try {
-            rate = scanner.nextInt();
+            inter = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Fel inmatning.");
         }
-        return rate;
+        return inter;
     }
 
-    public int pickShoeForReview(Order order) {
-        Scanner scanner = new Scanner(System.in);
-        int shoe = -1;
-        System.out.println("Välj en sko!");
-        order.printForReview();
-        try {
-            shoe = scanner.nextInt() -1;
-        } catch (InputMismatchException e) {
-            System.out.println("Fel inmatning.");
-        }
-        return shoe;
-    }
 
-    public int pickShoesForAlternative(){
-        Scanner scanner = new Scanner(System.in);
-        int shoe = -1;
-        System.out.println("Välj en sko!");
-        try {
-            shoe = scanner.nextInt() -1;
-        } catch (InputMismatchException e) {
-            System.out.println("Fel inmatning.");
-        }
-        return shoe;
-    }
+
 
     public static void main(String[] args) {
         View view = new View();

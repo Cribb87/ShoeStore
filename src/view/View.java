@@ -19,8 +19,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class View {
     private Controller controller;
 
-
-    // låta användaren lägga in produkter. ska ej kunna se databasens IDn
     public View() {
         controller = new Controller();
     }
@@ -43,7 +41,6 @@ public class View {
             createReviews();
     }
 
-    // skriv in användarnamn & lösenord
     public void login() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -60,7 +57,6 @@ public class View {
         }
     }
 
-    // skriv ut alla produkter i lager och välj produkt
     public void printAllShoes() {
         AtomicInteger counter = new AtomicInteger(1);
         controller.getAllShoes().forEach(e -> System.out.println(counter.getAndIncrement() + ": " + e));
@@ -81,8 +77,6 @@ public class View {
                 else
                     break;
             }
-
-
             while (true) {
                 System.out.println("1. Se betyg \n2. Lägg till sko");
                 review = scanInt();
@@ -99,13 +93,11 @@ public class View {
                     else {
                         System.out.println("Skon ej tillagd");
                     }
-                    // stored procedures, produkten läggs till i beställningen
                 } else if (review == 2) {
                     System.out.println(controller.addToCart(shoes.get(product).getId()));
                 }
     }
 
-    // möjlighet att skriva ut alla produkter som lagts i varukorgen
     public boolean printOrder() {
         Scanner scanner = new Scanner(System.in);
         Order order = controller.getLastOrder();
@@ -122,7 +114,6 @@ public class View {
         return false;
     }
 
-    // betyg och kommentarer ska kunna GES på produkter (VG)
     public void createReviews() {
         Scanner scanner = new Scanner(System.in);
         String choice = "";
@@ -167,9 +158,7 @@ public class View {
                     if (!choice.equalsIgnoreCase("ja"))
                         break;
                 }
-
             }
-
         }
     }
 

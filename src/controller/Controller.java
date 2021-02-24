@@ -7,7 +7,7 @@ import model.Shoe;
 import java.util.List;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 14:42
  * Project: ShoeStore

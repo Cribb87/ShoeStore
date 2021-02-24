@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 12:33
  * Project: ShoeStore
@@ -19,13 +19,11 @@ public class Shoe {
     private List<ShoeColor> colors = new ArrayList<>();
     private List<ShoeCategory> categories = new ArrayList<>();
 
-
     public Shoe(int id, Price price, Brand brand, Size size) {
         this.id = id;
         this.price = price;
         this.brand = brand;
         this.size = size;
-
     }
 
     public int getId() {

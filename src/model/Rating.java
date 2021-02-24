@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 14:31
  * Project: ShoeStore
@@ -15,7 +15,6 @@ public class Rating {
         this.id = id;
         this.rate = rate;
     }
-
 
     @Override
     public String toString(){

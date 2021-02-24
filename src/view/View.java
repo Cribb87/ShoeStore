@@ -178,7 +178,6 @@ public class View {
         int inter = -1;
         try {
             inter = scanner.nextInt();
-            System.out.println(inter);
         } catch (InputMismatchException e) {
             System.out.println("Fel inmatning.");
         }

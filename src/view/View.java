@@ -70,7 +70,7 @@ public class View {
         Scanner scanner = new Scanner(System.in);
         List<Shoe> shoes = controller.getAllShoes();
         int product = 0;
-        try {
+        int review = 0;
             while(true) {
                 System.out.print("Välj en sko: ");
                 System.out.flush();
@@ -81,29 +81,28 @@ public class View {
                 else
                     break;
             }
-                System.out.println("1. Se reviews \n2. Lägg till sko");
 
-                int review = scanner.nextInt();
-                scanner.nextLine();
+
+            while (true) {
+                System.out.println("1. Se reviews \n2. Lägg till sko");
+                review = scanInt();
+                if (review == 1 || review == 2)
+                    break;
+            }
                 if (review == 1) {
                     System.out.println(controller.getReview(shoes.get(product).getId()));
-                    System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej"); System.out.flush();
+                    System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej: "); System.out.flush();
                     String addShoe = scanner.nextLine().trim();
                     if (addShoe.equalsIgnoreCase("ja")) {
                         System.out.println(controller.addToCart(shoes.get(product).getId()));
                     }
                     else {
                         System.out.println("Skon ej tillagd");
-                        chooseAlternative();
                     }
                     // stored procedures, produkten läggs till i beställningen
                 } else if (review == 2) {
                     System.out.println(controller.addToCart(shoes.get(product).getId()));
-                } else
-                    System.out.println("Du måste ange siffran 1 eller 2");
-            } catch (InputMismatchException e1) {
-                System.out.println("Fel inmatning");
-            }
+                }
     }
 
     // möjlighet att skriva ut alla produkter som lagts i varukorgen
@@ -184,9 +183,6 @@ public class View {
         }
         return inter;
     }
-
-
-
 
     public static void main(String[] args) {
         View view = new View();

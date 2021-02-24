@@ -78,7 +78,7 @@ public class View {
                     break;
             }
             while (true) {
-                System.out.println("1. Se betyg \n2. Lägg till sko");
+                System.out.println("1. Se recensioner \n2. Lägg till sko");
                 review = scanInt();
                 if (review == 1 || review == 2)
                     break;

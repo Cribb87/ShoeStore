@@ -100,7 +100,7 @@ public class Repository {
                     String tName = rs.getString("name");
                     String tPassword = rs.getString("password");
 
-                    if (username.equals(tName) && password.equals(tPassword)) {
+                    if (username.equalsIgnoreCase(tName) && password.equals(tPassword)) {
                         customerID = rs.getInt("id");
                         return true;
                     }

@@ -174,7 +174,7 @@ public class View {
 
     public int scanInt() {
         Scanner scanner = new Scanner(System.in);
-        int inter = -1991;
+        int inter = -1;
         try {
             inter = scanner.nextInt();
         } catch (InputMismatchException e) {

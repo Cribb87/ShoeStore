@@ -34,7 +34,7 @@ public class View {
         printAllShoes();
         while (true) {
             chooseAlternative();
-            System.out.println("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
+            System.out.print("Vill du lägga till fler varor? ja/nej: "); System.out.flush();
             choice = scan.nextLine().trim();
             if (choice.equalsIgnoreCase("nej") || !choice.equalsIgnoreCase("ja"))
                 break;
@@ -84,14 +84,14 @@ public class View {
 
 
             while (true) {
-                System.out.println("1. Se reviews \n2. Lägg till sko");
+                System.out.println("1. Se betyg \n2. Lägg till sko");
                 review = scanInt();
                 if (review == 1 || review == 2)
                     break;
             }
                 if (review == 1) {
                     System.out.println(controller.getReview(shoes.get(product).getId()));
-                    System.out.println("Vill du lägga till denna sko i varukorgen? ja/nej: "); System.out.flush();
+                    System.out.print("Vill du lägga till denna sko i varukorgen? ja/nej: "); System.out.flush();
                     String addShoe = scanner.nextLine().trim();
                     if (addShoe.equalsIgnoreCase("ja")) {
                         System.out.println(controller.addToCart(shoes.get(product).getId()));

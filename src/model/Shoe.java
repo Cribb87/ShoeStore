@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 12:33
  * Project: ShoeStore

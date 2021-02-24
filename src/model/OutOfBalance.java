@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-23
  * Time: 19:47
  * Project: ShoeStore

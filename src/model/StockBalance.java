@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 21:20
  * Project: ShoeStore

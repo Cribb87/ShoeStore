@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 14:18
  * Project: ShoeStore
@@ -50,5 +50,4 @@ public class Order {
                 "\nSkor: " + shoe +
                 "\nSumma: " + amount + currency;
     }
-
 }

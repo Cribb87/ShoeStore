@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-21
  * Time: 13:53
  * Project: ShoeStore
@@ -45,7 +45,7 @@ public class Repository {
                             s.addCategory(new ShoeCategory(rs.getInt("categorygroup.CategoryID"),rs.getString("category.name")));
                     }
                 }
-            }catch (SQLException e){
+            } catch (SQLException e){
                 e.printStackTrace();
             }
         }
@@ -62,7 +62,7 @@ public class Repository {
                             s.addColor(new ShoeColor(rs.getInt("colorGroup.colorid"),rs.getString("color.shade")));
                     }
                 }
-            }catch (SQLException e){
+            } catch (SQLException e){
                 e.printStackTrace();
             }
         }
@@ -105,7 +105,7 @@ public class Repository {
                         return true;
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
             }
             return false;
@@ -127,7 +127,7 @@ public class Repository {
                    if (!errorText.isEmpty())
                        return "Det gick inte att lägga till varan.";
                }
-            }catch (SQLException e){
+            } catch (SQLException e){
                 e.printStackTrace();
             }
             return "Skon har lagts till i din order.";

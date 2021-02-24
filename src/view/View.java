@@ -3,14 +3,13 @@ package view;
 import controller.Controller;
 import model.*;
 
-import java.sql.*;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by Emil Johansson
+ * Created by Emil Johansson & Christoffer Grännby
  * Date: 2021-02-20
  * Time: 14:42
  * Project: ShoeStore
@@ -70,14 +69,14 @@ public class View {
             while(true) {
                 System.out.print("Välj en sko: ");
                 System.out.flush();
-                product = scanInt("")-1;
+                product = scanInt()-1;
                 if (shoes.size() - 1 < product || 0 > product) {
                     System.out.println("Produkten finns inte!");
                 }
                 else
                     break;
             }
-                System.out.println("1. Se reviews \n2. Lägg till sko");
+                System.out.println("1. Se recensioner \n2. Lägg till sko");
 
                 int review = scanner.nextInt();
                 scanner.nextLine();
@@ -133,14 +132,14 @@ public class View {
                     o.printForReview();
                     System.out.print("Välj en sko: ");
                     System.out.flush();
-                    shoe = scanInt("Produkten finns inte!3")-1;
+                    shoe = scanInt()-1;
                     if (shoe >=0 && shoe <= o.getShoes().size()-1)
                         break;
                 }
                 while (rate > 4 || rate < 1) {
                     System.out.print("Välj ett betyg 1 - 4: ");
                     System.out.flush();
-                    rate = scanInt("Produkten finns inte!2");
+                    rate = scanInt();
                 }
 
                 System.out.print("Kommentar: ");
@@ -164,14 +163,13 @@ public class View {
         }
     }
 
-    public int scanInt(String error) {
+    public int scanInt() {
         Scanner scanner = new Scanner(System.in);
         int inter = -1;
         try {
             inter = scanner.nextInt();
         } catch (InputMismatchException e) {
-           // System.out.println("Fel inmatning.");
-            System.out.println(error);
+            System.out.println("Fel inmatning.");
         }
         return inter;
     }

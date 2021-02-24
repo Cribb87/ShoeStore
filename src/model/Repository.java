@@ -125,7 +125,6 @@ public class Repository {
                 statement.setInt(3,shoeID);
                 statement.registerOutParameter(2,Types.INTEGER);
                 statement.execute();
-
                 if (orderID == 0)
                     orderID = statement.getInt(2);
                 return "Skon har lagts till i din order";
